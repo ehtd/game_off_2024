@@ -4,6 +4,9 @@
 require 'app/utils/random'
 require 'app/utils/colors'
 
+# lowrez
+require 'app/lowrez'
+
 # scenes
 require 'app/scenes/game'
 
