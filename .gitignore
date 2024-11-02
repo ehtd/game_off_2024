@@ -1,0 +1,25 @@
+.idea/
+/tmp/
+/logs/
+/builds/
+/.dragonruby/itchio-butler/
+
+# DR
+/docs/
+/samples/
+ctags-vim
+ctags-emacs
+console-logo.png
+font.ttf
+CHANGELOG-CURR.txt
+CHANGELOG-PREV.txt
+open-source-licenses.txt
+README.txt
+VERSION.txt
+eula.txt
+dragonruby
+dragonruby.png
+dragonruby-httpd
+dragonruby-publish
+dragonruby-controller.png
+
