@@ -49,16 +49,15 @@ class Game
     g.paddle.x = new_x if new_x < LOWREZ_SIZE_W - g.paddle.w && new_x.positive?
   end
 
-  def update
-  end
+  def update; end
 
   def render_debug
     unless state.grid_rendered
       # vertical lines
       (LOWREZ_SIZE_H + 1).map_with_index do |i|
         outputs.static_debug << {
-          x:  LOWREZ_X_OFFSET,
-          y:  LOWREZ_Y_OFFSET + (i * LOWREZ_ZOOM),
+          x: LOWREZ_X_OFFSET,
+          y: LOWREZ_Y_OFFSET + (i * LOWREZ_ZOOM),
           x2: LOWREZ_X_OFFSET + LOWREZ_SIZE_W * LOWREZ_ZOOM,
           y2: LOWREZ_Y_OFFSET + (i * LOWREZ_ZOOM),
           r: 128,
@@ -71,8 +70,8 @@ class Game
       # horizontal lines
       (LOWREZ_SIZE_W + 1).map_with_index do |i|
         outputs.static_debug << {
-          x:  LOWREZ_X_OFFSET + (i * LOWREZ_ZOOM),
-          y:  LOWREZ_Y_OFFSET,
+          x: LOWREZ_X_OFFSET + (i * LOWREZ_ZOOM),
+          y: LOWREZ_Y_OFFSET,
           x2: LOWREZ_X_OFFSET + (i * LOWREZ_ZOOM),
           y2: LOWREZ_Y_OFFSET + LOWREZ_SIZE_H * LOWREZ_ZOOM,
           r: 128,

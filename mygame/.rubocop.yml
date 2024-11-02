@@ -28,3 +28,13 @@ Metrics/PerceivedComplexity:
 Style/Next:
   Enabled: false
 
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: key
+  EnforcedColonStyle: key
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/MultilineHashKeyLineBreaks:
+  Enabled: true
+
