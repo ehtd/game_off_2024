@@ -1,0 +1,4 @@
+include:
+- "**/*.rb"
+- "../../dragonruby-yard-doc/*.rb"
+

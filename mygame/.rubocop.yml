@@ -1,0 +1,30 @@
+AllCops:
+  NewCops: disable
+
+Style/GlobalVars:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 180
+
+Naming/MethodParameterName:
+  MinNameLength: 1
+
+Metrics/ClassLength:
+  Max: 500
+
+Metrics/MethodLength:
+  Max: 50
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
+
