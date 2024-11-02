@@ -28,7 +28,7 @@ class Game
 
   def render
     lowrez.background_color = [0.5, 0.5, 0.5]
-    # render_debug
+    render_debug
     args.outputs.labels << {
       x: 640,
       y: 510,
@@ -46,14 +46,14 @@ class Game
     dx -= 1 if inputs.keyboard.left
     dx += 1 if inputs.keyboard.right
     new_x = g.paddle.x + dx
-    g.paddle.x = new_x if new_x < LOWREZ_SIZE_W - g.paddle.w && new_x > 0
+    g.paddle.x = new_x if new_x < LOWREZ_SIZE_W - g.paddle.w && new_x.positive?
   end
 
   def update
   end
 
   def render_debug
-    if !state.grid_rendered
+    unless state.grid_rendered
       # vertical lines
       (LOWREZ_SIZE_H + 1).map_with_index do |i|
         outputs.static_debug << {
