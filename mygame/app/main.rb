@@ -1,85 +1,37 @@
-def tick args
-  args.state.logo_rect ||= { x: 576,
-                             y: 200,
-                             w: 128,
-                             h: 101 }
+# frozen_string_literal: true
 
-  args.outputs.labels  << { x: 640,
-                            y: 600,
-                            text: 'Hello World!',
-                            size_px: 30,
-                            anchor_x: 0.5,
-                            anchor_y: 0.5 }
+# utilities
+require 'app/utils/random'
+require 'app/utils/colors'
 
-  args.outputs.labels  << { x: 640,
-                            y: 510,
-                            text: "Documentation is located under the ./docs/docs.txt directory. 150+ samples are located under the ./samples directory.",
-                            size_px: 20,
-                            anchor_x: 0.5,
-                            anchor_y: 0.5 }
+# scenes
+require 'app/scenes/game'
 
-  args.outputs.labels  << { x: 640,
-                            y: 480,
-                            text: "If you prefer formatted docs, you can access them locally at http://localhost:9001 or online at http://docs.dragonruby.org.",
-                            size_px: 20,
-                            anchor_x: 0.5,
-                            anchor_y: 0.5 }
+def boot(_args)
+  $gtk.disable_console if $gtk.production?
+end
 
-  args.outputs.labels  << { x: 640,
-                            y: 400,
-                            text: "The code that powers what you're seeing right now is located at ./mygame/app/main.rb.",
-                            size_px: 20,
-                            anchor_x: 0.5,
-                            anchor_y: 0.5 }
+def tick(args)
+  $game ||= Game.new
 
-  args.outputs.labels  << { x: 640,
-                            y: 380,
-                            text: "(you can change the code while the app is running and see the updates live)",
-                            size_px: 20,
-                            anchor_x: 0.5,
-                            anchor_y: 0.5 }
+  args.state.current_scene ||= :game_scene
+  current_scene = args.state.current_scene
 
-  args.outputs.sprites << { x: args.state.logo_rect.x,
-                            y: args.state.logo_rect.y,
-                            w: args.state.logo_rect.w,
-                            h: args.state.logo_rect.h,
-                            path: 'dragonruby.png',
-                            angle: Kernel.tick_count }
-
-  args.outputs.labels  << { x: 640,
-                            y: 180,
-                            text: "(use arrow keys to move the logo around)",
-                            size_px: 20,
-                            anchor_x: 0.5,
-                            anchor_y: 0.5 }
-
-  args.outputs.labels  << { x: 640,
-                            y: 80,
-                            text: 'Join the Discord Server! https://discord.dragonruby.org',
-                            size_px: 30,
-                            anchor_x: 0.5 }
-
-  if args.inputs.keyboard.left
-    args.state.logo_rect.x -= 10
-  elsif args.inputs.keyboard.right
-    args.state.logo_rect.x += 10
+  # scene tick selector
+  case current_scene
+  when :game_scene
+    $game.args = args
+    $game.tick
   end
 
-  if args.inputs.keyboard.down
-    args.state.logo_rect.y -= 10
-  elsif args.inputs.keyboard.up
-    args.state.logo_rect.y += 10
+  # make sure that the current_scene flag wasn't set mid tick
+  if args.state.current_scene != current_scene
+    raise 'Scene was changed incorrectly. Set args.state.next_scene to change scenes.'
   end
 
-  if args.state.logo_rect.x > 1280
-    args.state.logo_rect.x = 0
-  elsif args.state.logo_rect.x < 0
-    args.state.logo_rect.x = 1280
-  end
+  # if next scene was set/requested, then transition the current scene to the next scene
+  return unless args.state.next_scene
 
-  if args.state.logo_rect.y > 720
-    args.state.logo_rect.y = 0
-  elsif args.state.logo_rect.y < 0
-    args.state.logo_rect.y = 720
-  end
+  args.state.current_scene = args.state.next_scene
+  args.state.next_scene = nil
 end
